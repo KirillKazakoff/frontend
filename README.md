@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/l0b5y47uh3i8d2r8?svg=true)](https://ci.appveyor.com/project/KirillKazakoff/fileloader)
