@@ -87,6 +87,14 @@ td {
     text-align: left;
 }
 
+.td__date {
+    width: 30%;
+}
+
+.td__actions {
+    width: 10%;
+}
+
 .desc-active {
     display: block;
 }

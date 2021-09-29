@@ -13,7 +13,8 @@ export default class XhrHandler {
             this.method = method;
             this.params = new URLSearchParams();
             this.params.append('method', method);
-            this.url = `http://localhost:9091/?${this.params}`;
+            // this.url = `http://localhost:9091/?${this.params}`;
+            this.url = `https://http-first.herokuapp.com/?${this.params}`;
 
             this.post(data);
             this.get();
