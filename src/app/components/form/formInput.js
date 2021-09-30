@@ -1,13 +1,13 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
 import './form.css';
-import formT from './form.tmp';
+import formInputT from './formInput.tmp';
 
 import engine from '../../lib/engine/engine';
 import errorMessages from './errorMessages';
 import FormElement from '../tooltip/formElem';
 
-export default class Form {
+export default class FormInput {
     constructor(target) {
         this.container = document.body;
         this.render();
@@ -22,10 +22,10 @@ export default class Form {
     }
 
     render() {
-        const html = engine(formT);
+        const html = engine(formInputT);
         this.container.insertAdjacentHTML('beforeend', html);
 
-        this.node = this.container.querySelector('.form');
+        this.node = this.container.querySelector('.form__input');
     }
 
     position(target) {
@@ -39,8 +39,9 @@ export default class Form {
         this.formElems = [...this.node.elements].map((elem) => new FormElement(elem));
     }
 
-    show(data) {
+    show(title, data) {
         this.node.classList.add('form__active');
+        this.changeTitle(title);
 
         this.clearFields();
         if (data) {
@@ -49,6 +50,11 @@ export default class Form {
                 edited.node.value = value;
             });
         }
+    }
+
+    changeTitle(title) {
+        const header = this.node.querySelector('.header');
+        header.textContent = title;
     }
 
     clearFields() {

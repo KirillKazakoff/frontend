@@ -1,15 +1,21 @@
+const headerT = {
+    block: 'header',
+    cls: 'header',
+    content: '',
+}
+
 const rowT = (row) => ({
     block: 'div',
-    cls: `row row__${row.param}`,
+    cls: `row row__${row.cls}`,
     content: [
         {
             block: 'span',
-            cls: `title title__${row.param}`,
+            cls: `title title__${row.cls}`,
             content: row.title,
         },
         {
             block: 'input',
-            cls: `input input__${row.param}`,
+            cls: `input input__${row.cls}`,
             attrs: {
                 required: true,
                 name: row.name,
@@ -54,8 +60,8 @@ const controlsT = {
 
 const formT = {
     block: 'form',
-    cls: 'form form__active',
-    content: [rowGen(), controlsT],
+    cls: 'form form__input form__active',
+    content: [headerT, rowGen(), controlsT],
     attrs: {
         novalidate: true,
     },

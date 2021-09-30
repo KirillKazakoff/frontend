@@ -5,18 +5,22 @@ import { noteTransform } from '../../lib/utils';
 import engine from '../../lib/engine/engine';
 
 import XhrHandler from './xhrHandler';
-import Form from '../form/form';
+import FormInput from '../form/formInput';
+import FormRemove from '../form/formRemove';
 
 export default class Table {
     constructor() {
         this.container = document.querySelector('tbody');
         this.xhr = new XhrHandler();
 
-        this.form = new Form(this.container);
-        this.form.node.addEventListener('submit', (e) => this.onFormSubmit(e));
+        this.formInput = new FormInput(this.container);
+        this.formInput.node.addEventListener('submit', (e) => this.onFormInputSub(e));
+
+        this.formRemove = new FormRemove(this.container);
+        this.formRemove.node.addEventListener('submit', (e) => this.onFormRemoveSub(e));
 
         this.addButton = document.querySelector('.plus-sign');
-        this.addButton.addEventListener('click', () => this.form.show());
+        this.addButton.addEventListener('click', () => this.formInput.show('Добавить тикет'));
 
         this.container.addEventListener('click', (e) => this.onClick(e));
     }
@@ -27,10 +31,10 @@ export default class Table {
         this.notes = [...this.container.children];
     }
 
-    onFormSubmit(e) {
-        this.form.clearErrors();
-        if (this.form.checkSubmit(e)) {
-            const note = this.form.getFormData();
+    onFormInputSub(e) {
+        this.formInput.clearErrors();
+        if (this.formInput.checkSubmit(e)) {
+            const note = this.formInput.getFormData();
 
             if (this.edited) {
                 [...this.edited.children].forEach((td) => {
@@ -51,7 +55,7 @@ export default class Table {
                 return;
             }
 
-            const formValues = this.form.getFormData();
+            const formValues = this.formInput.getFormData();
             this.xhr.sendRequest('createTicket', {
                 ...formValues,
             }).then((note) => {
@@ -59,9 +63,22 @@ export default class Table {
                 const newNote = engine(tableRowT(noteTmp));
                 this.container.insertAdjacentHTML('beforeend', newNote);
 
-                this.form.clearFields();
+                this.formInput.clearFields();
             })
         }
+    }
+
+    onFormRemoveSub(e) {
+        e.preventDefault();
+
+        const { delRow } = this.formRemove;
+        this.xhr.sendRequest('removeTicket', {
+            id: delRow.id,
+        })
+
+        this.formRemove.removeRow();
+        this.formRemove.hide();
+        return;
     }
 
     onClick(e) {
@@ -73,17 +90,12 @@ export default class Table {
                 this.edited = noteEl;
 
                 const data = this.getNoteData(noteEl);
-                this.form.show(data);
+                this.formInput.show('Изменить тикет', data);
                 return;
             }
 
             if (e.target.classList.contains('button__delete')) {
-                const noteEl = e.target.closest('.table__row');
-                noteEl.remove();
-
-                this.xhr.sendRequest('removeTicket', {
-                    id: row.id,
-                })
+                this.formRemove.show(e.target.closest('.table__row'));
                 return;
             }
 

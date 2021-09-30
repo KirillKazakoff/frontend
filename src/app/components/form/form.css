@@ -16,6 +16,10 @@
     display: block;
 }
 
+.row__delete {
+    text-align: center;
+}
+
 .row:nth-child(n+2) {
     margin-top: 20px;
 }
@@ -47,4 +51,12 @@
     border: solid 2px thistle;
     border-radius: 20px;
     background-color: white;
+}
+
+.header {
+    text-align: center;
+}
+
+.remove-alert {
+    text-align: center;
 }
