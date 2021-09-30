@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-param-reassign */
 import './table.css';
 import { tableT, tableRowT } from './table.template';
@@ -58,13 +59,13 @@ export default class Table {
             const formValues = this.formInput.getFormData();
             this.xhr.sendRequest('createTicket', {
                 ...formValues,
-            }).then((note) => {
-                const noteTmp = noteTransform(note);
+            }).then((n) => {
+                const noteTmp = noteTransform(n);
                 const newNote = engine(tableRowT(noteTmp));
                 this.container.insertAdjacentHTML('beforeend', newNote);
 
                 this.formInput.clearFields();
-            })
+            });
         }
     }
 
@@ -74,11 +75,10 @@ export default class Table {
         const { delRow } = this.formRemove;
         this.xhr.sendRequest('removeTicket', {
             id: delRow.id,
-        })
+        });
 
         this.formRemove.removeRow();
         this.formRemove.hide();
-        return;
     }
 
     onClick(e) {
@@ -130,6 +130,6 @@ export default class Table {
 
         return {
             id, status,
-        }
+        };
     }
 }

@@ -5,7 +5,7 @@ export default class Controller {
     constructor() {
         window.onload = async () => {
             this.table = new Table();
-            
+
             const { xhr } = this.table;
             const serverNotes = await xhr.sendRequest('initTable');
 

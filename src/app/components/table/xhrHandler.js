@@ -1,4 +1,6 @@
+/* eslint-disable class-methods-use-this */
 // this.url = `http://localhost:9091/?${this.params}`;
+
 export default class XhrHandler {
     constructor() {
         this.url = null;
@@ -23,7 +25,7 @@ export default class XhrHandler {
             this.xhr.addEventListener('load', () => {
                 resolve(JSON.parse(this.xhr.response));
             });
-        })
+        });
     }
 
     get() {
@@ -50,7 +52,7 @@ export default class XhrHandler {
         const formData = new FormData();
         Object.entries(data).forEach(([key, value]) => {
             formData.append(key, value);
-        })
+        });
 
         return formData;
     }

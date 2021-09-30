@@ -1,8 +1,11 @@
+// eslint-disable-next-line consistent-return
 const tableRowTd = ([key, value]) => {
-    if (key !== 'id') return {
-        block: 'td',
-        cls: `td__${key}`,
-        content: value,
+    if (key !== 'id') {
+        return {
+            block: 'td',
+            cls: `td__${key}`,
+            content: value,
+        };
     }
 };
 
@@ -12,7 +15,7 @@ const tableRowT = (note) => ({
     content: Object.entries(note).map(tableRowTd),
     attrs: {
         id: note.id,
-    }
+    },
 });
 
 const tableT = (notes) => ({

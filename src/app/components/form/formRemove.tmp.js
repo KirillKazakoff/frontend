@@ -2,7 +2,7 @@ const content = 'Вы действительно хотите удалить э�
 
 const rowT = {
     block: 'div',
-    cls: `row row__delete`,
+    cls: 'row row__delete',
     content,
 };
 
@@ -10,13 +10,7 @@ const header = {
     block: 'header',
     cls: 'header',
     content: 'Удалить тикет',
-}
-
-// const alertT = {
-//     block: 'p',
-//     cls: 'remove-alert',
-//     content,
-// };
+};
 
 const buttonT = (param, title, type) => ({
     block: 'button',
@@ -28,7 +22,7 @@ const buttonT = (param, title, type) => ({
 const controlsT = {
     block: 'div',
     cls: 'controls',
-    content: [buttonT('save', 'Сохранить', 'submit'), buttonT('cancel', 'Отмена', 'button')],
+    content: [buttonT('save', 'Удалить', 'submit'), buttonT('cancel', 'Отмена', 'button')],
 };
 
 const formRemoveT = {

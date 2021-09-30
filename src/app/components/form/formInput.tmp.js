@@ -2,7 +2,7 @@ const headerT = {
     block: 'header',
     cls: 'header',
     content: '',
-}
+};
 
 const rowT = (row) => ({
     block: 'div',
